@@ -83,7 +83,7 @@ int WINAPI wWinMain
 
 	U16String path = (utf16*)chBuf;
 
-	path += UTEXT("/ShanHai/media");
+	path += UTEXT("/shunhy/media");
 
 	U16String name((utf16*)L"Hello Word");
 
