@@ -1,0 +1,125 @@
+﻿log system init.
+log: core server setup.
+log: D3D_FEATURE_LEVEL: D3D_FEATURE_LEVEL_11_0
+log: compile shader: system:default.shader
+
+log: 
+log: build shader: system:default.shader
+
+log: Version: 65600
+log: Creator: Microsoft (R) HLSL Shader Compiler 9.29.952.3111
+log: ConstantBuffers: 3
+log: BoundResources: 3
+log: InputParameters: 3
+log: OutputParameters: 3
+log: InstructionCount: 37
+log: TempRegisterCount: 2
+log: TempArrayCount: 0
+log: DefCount: 0
+log: DclCount: 6
+log: FloatInstructionCount: 25
+log: IntInstructionCount: 0
+log: UintInstructionCount: 0
+log: StaticFlowControlCount: 1
+log: DynamicFlowControlCount: 0
+log: build const buffer.
+log: 	Name: cbCameraParamter
+log: 	Type: 0
+log: 	BindPoint: 0
+log: 	BindCount: 1
+log: 	ReturnType: 0
+log: 	Variables: 2
+log: 	Size: 128
+log: 			Name:gView, StartOffset: 0, Size: 64
+log: 			Name:gProj, StartOffset: 64, Size: 64
+log: build const buffer.
+log: 	Name: cbObjectParamter
+log: 	Type: 0
+log: 	BindPoint: 1
+log: 	BindCount: 1
+log: 	ReturnType: 0
+log: 	Variables: 1
+log: 	Size: 64
+log: 			Name:gWorld, StartOffset: 0, Size: 64
+log: build const buffer.
+log: 	Name: cbTestParamter
+log: 	Type: 0
+log: 	BindPoint: 2
+log: 	BindCount: 1
+log: 	ReturnType: 0
+log: 	Variables: 7
+log: 	Size: 928
+log: 			Name:TestgView, StartOffset: 0, Size: 64
+log: 			Name:Test_float4, StartOffset: 64, Size: 16
+log: 			Name:Test_float3, StartOffset: 80, Size: 12
+log: 			Name:Test_float2, StartOffset: 96, Size: 8
+log: 			Name:Test_float, StartOffset: 104, Size: 4
+log: 			Name:Test_float4ss, StartOffset: 112, Size: 800
+log: 			Name:Test_int, StartOffset: 912, Size: 4
+log: Version: 64
+log: Creator: Microsoft (R) HLSL Shader Compiler 9.29.952.3111
+log: ConstantBuffers: 0
+log: BoundResources: 0
+log: InputParameters: 2
+log: OutputParameters: 1
+log: InstructionCount: 2
+log: TempRegisterCount: 0
+log: TempArrayCount: 0
+log: DefCount: 0
+log: DclCount: 1
+log: FloatInstructionCount: 0
+log: IntInstructionCount: 0
+log: UintInstructionCount: 0
+log: StaticFlowControlCount: 1
+log: DynamicFlowControlCount: 0
+log: build shader end(system:default.shader).
+
+
+log: parser debug(108,21): warning X3206: implicit truncation of vector type
+
+log: parser debug(108,21): warning X3206: implicit truncation of vector type
+
+log: application start.
+log: ------------------ render test init -------------------
+log: 
+log: build shader: test_program
+
+log: Version: 65600
+log: Creator: Microsoft (R) HLSL Shader Compiler 9.29.952.3111
+log: ConstantBuffers: 0
+log: BoundResources: 0
+log: InputParameters: 1
+log: OutputParameters: 1
+log: InstructionCount: 3
+log: TempRegisterCount: 0
+log: TempArrayCount: 0
+log: DefCount: 0
+log: DclCount: 2
+log: FloatInstructionCount: 0
+log: IntInstructionCount: 0
+log: UintInstructionCount: 0
+log: StaticFlowControlCount: 1
+log: DynamicFlowControlCount: 0
+log: Version: 64
+log: Creator: Microsoft (R) HLSL Shader Compiler 9.29.952.3111
+log: ConstantBuffers: 0
+log: BoundResources: 0
+log: InputParameters: 0
+log: OutputParameters: 1
+log: InstructionCount: 2
+log: TempRegisterCount: 0
+log: TempArrayCount: 0
+log: DefCount: 0
+log: DclCount: 1
+log: FloatInstructionCount: 0
+log: IntInstructionCount: 0
+log: UintInstructionCount: 0
+log: StaticFlowControlCount: 1
+log: DynamicFlowControlCount: 0
+log: build shader end(test_program).
+
+
+log: application run begin.
+log: application run end.
+log: application destroy.
+log: core server destroy.

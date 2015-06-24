@@ -1,0 +1,25 @@
+set (PROJECTNAME ${CORE_LIB_NAME})
+
+project( ${PROJECTNAME} )
+
+include(${PROJECTNAME}.list)
+
+#include_directories(include)
+
+
+add_definitions(-D_USRDLL)
+ADD_DEFINITIONS(-DSHH_CORE_EXPORTS)
+# setup ShhCore target
+add_library(${PROJECTNAME} STATIC 
+						${HEADER_FILES} 
+						${PUBLIC_HEADER_FILES}
+						${SOURCE_FILES}
+						${DLLMAIN_FILES}
+						${FILE_SYSTEM_SOURCE_FILES}
+						${FILE_SYSTEM_HEADER_FILES}
+						${CMAKE_FILES}
+						)
+
+#SET_PROPERTY(TARGET ${PROJECTNAME} PROPERTIES FOLDER "CORE_FOLDER_NAME")
+set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${CORE_FOLDER_NAME})
+

@@ -1,0 +1,48 @@
+set (HEADER_FILES
+  include/D3d11_Buffer.h
+  include/D3d11_Common.h
+  include/D3d11_Driver.h
+  include/D3d11_IndexBuffer.h
+  include/D3d11_InputLayout.h
+  include/D3d11_PixelShader.h
+  include/D3d11_Shader.h
+  include/D3d11_ResourceFactory.h
+  include/D3d11_Texture.h
+  include/D3d11_VertexBuffer.h
+  include/D3d11_VertexShader.h
+  include/D3d11_GpuRegBuffer.h
+  include/D3d11_GPUProgram.h
+  include/D3d11_SystemBuffer.h
+  include/D3d11_CustomBuffer.h
+  include/D3d11_BoundResource.h
+  include/D3d11_Utility.h
+  include/D3d11_InputBinding.h
+)
+set (SOURCE_FILES
+  src/D3d11_Buffer.cpp
+  src/D3d11_Common.cpp
+  src/D3d11_Driver.cpp
+  src/D3d11_IndexBuffer.cpp
+  src/D3d11_InputLayout.cpp
+  src/D3d11_PixelShader.cpp
+  src/D3d11_Shader.cpp
+  src/D3d11_ResourceFactory.cpp
+  src/D3d11_Texture.cpp
+  src/D3d11_VertexBuffer.cpp
+  src/D3d11_VertexShader.cpp
+  src/D3d11_GpuRegBuffer.cpp
+  src/D3d11_GPUProgram.cpp
+  src/D3d11_SystemBuffer.cpp
+  src/D3d11_CustomBuffer.cpp
+  src/D3d11_BoundResource.cpp
+  src/D3d11_Utility.cpp
+  src/D3d11_InputBinding.cpp
+)
+
+
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)

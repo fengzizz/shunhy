@@ -1,0 +1,23 @@
+
+set (PUBLIC_HEADER_FILES		
+		${SOLUTION_DIR}/include/Renderer/RendererDef.h	
+		${SOLUTION_DIR}/include/Renderer/Renderer.h	
+)
+
+set (HEADER_FILES
+  #src/
+)
+set (SOURCE_FILES
+  src/Renderer.cpp
+)
+
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+SOURCE_GROUP("public_include" FILES
+						${PUBLIC_HEADER_FILES}
+)
+

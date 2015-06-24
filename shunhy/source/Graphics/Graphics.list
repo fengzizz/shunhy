@@ -1,0 +1,41 @@
+
+set (PUBLIC_HEADER_FILES
+		${SOLUTION_DIR}/include/Graphics/GraphicsDef.h			
+		${SOLUTION_DIR}/include/Graphics/Graphics.h	
+		${SOLUTION_DIR}/include/Graphics/Material.h	
+		${SOLUTION_DIR}/include/Graphics/Shader.h
+		${SOLUTION_DIR}/include/Graphics/RenderHandle.h
+		${SOLUTION_DIR}/include/Graphics/SceneSystem.h
+		${SOLUTION_DIR}/include/Graphics/SceneObject.h
+		${SOLUTION_DIR}/include/Graphics/Scene.h
+		${SOLUTION_DIR}/include/Graphics/GraphicSystem.h
+		${SOLUTION_DIR}/include/Graphics/GraphicRenderer.h
+		${SOLUTION_DIR}/include/Graphics/Renderable.h
+)
+
+set (HEADER_FILES
+  src/GraphicInstance.h 
+)
+set (SOURCE_FILES
+  src/Graphics.cpp
+  src/Material.cpp
+  src/Shader.cpp
+  src/GraphicInstance.cpp
+  src/RenderHandle.cpp
+  src/SceneSystem.cpp
+  src/SceneObject.cpp
+  src/Scene.cpp
+  src/GraphicSystem.cpp
+  src/GraphicRenderer.cpp
+  src/Renderable.cpp
+)
+
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+SOURCE_GROUP("public_include" FILES
+						${PUBLIC_HEADER_FILES}
+)

@@ -1,0 +1,28 @@
+
+set (PUBLIC_HEADER_FILES
+		${SOLUTION_DIR}/include/Resource/ResourceDef.h			
+		${SOLUTION_DIR}/include/Resource/Resource.h	
+		${SOLUTION_DIR}/include/Resource/ResourceManager.h	
+		${SOLUTION_DIR}/include/Resource/URI.h	
+		${SOLUTION_DIR}/include/Resource/NameObject.h
+)
+
+set (HEADER_FILES
+  #src/
+)
+set (SOURCE_FILES
+  src/Resource.cpp
+  src/ResourceManager.cpp
+  src/URI.cpp
+  src/NameObject.cpp
+)
+
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+SOURCE_GROUP("public_include" FILES
+						${PUBLIC_HEADER_FILES}
+)

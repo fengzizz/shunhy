@@ -1,0 +1,26 @@
+set (HEADER_FILES
+		${SOLUTION_DIR}/include/RTShaderSystem/RTSSCommon.h
+		${SOLUTION_DIR}/include/RTShaderSystem/RTSSDef.h
+		${SOLUTION_DIR}/include/RTShaderSystem/ShaderManager.h
+		${SOLUTION_DIR}/include/RTShaderSystem/ShaderCompiler.h
+)
+set (SOURCE_FILES
+  src/ShaderManager.cpp  
+  src/ShaderCompiler.cpp
+  src/parser/ShhShader_lex.cpp
+  src/parser/ShhShader_yacc.cpp
+  src/parser/ShhShader_yacc.hpp
+  src/parser/ShhShader_lex.lcc
+  src/parser/ShhShader_yacc.ycc
+  src/parser/ShaderParser.h
+  src/parser/ShaderParser.cpp
+  src/parser/tools/ParseUtility.h
+  src/parser/tools/ParseUtility.cpp
+)
+
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)

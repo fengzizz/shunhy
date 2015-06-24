@@ -1,0 +1,43 @@
+set (HEADER_FILES
+  include/ShhKeyboard.h
+  include/ShhMouse.h
+  include/ShhTimeManager.h
+  include/ShhWinCommDef.h
+  include/ShhWindow.h
+)
+set (SOURCE_FILES
+  src/ShhKeyboard.cpp
+  src/ShhMouse.cpp
+  src/ShhTimeManager.cpp
+  src/ShhWindow.cpp
+
+  
+)
+
+set (INTERFACE_FILES
+		../../include/IWindow/Keyboard.h
+		../../include/IWindow/Mouses.h
+		../../include/IWindow/TimeManager.h
+		../../include/IWindow/WinConfig.h	
+		../../include/IWindow/IWindow.h
+)
+
+set (DLLMAIN_FILES
+	dllmain/targetver.h
+	dllmain/dllmain.cpp
+)
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+SOURCE_GROUP("interface" FILES
+						${INTERFACE_FILES}
+)
+SOURCE_GROUP("dllmain" FILES
+						${DLLMAIN_FILES}
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)

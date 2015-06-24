@@ -1,0 +1,60 @@
+
+
+
+set (HEADER_FILES		
+		${SOLUTION_DIR}/include/DrawDrv/PixelFormat.h		
+		${SOLUTION_DIR}/include/DrawDrv/PixelFormatDesc.h
+		${SOLUTION_DIR}/include/DrawDrv/RenderFormat.h
+		${SOLUTION_DIR}/include/DrawDrv/DrawDrvConfig.h
+		${SOLUTION_DIR}/include/DrawDrv/DrawDrvDef.h
+
+		${SOLUTION_DIR}/include/DrawDrv/GpuRegBuffer.h
+		${SOLUTION_DIR}/include/DrawDrv/IndexBuffer.h
+		${SOLUTION_DIR}/include/DrawDrv/InputElement.h
+		${SOLUTION_DIR}/include/DrawDrv/InputLayout.h
+		${SOLUTION_DIR}/include/DrawDrv/RenderResource.h
+		${SOLUTION_DIR}/include/DrawDrv/RenderData.h
+		${SOLUTION_DIR}/include/DrawDrv/GPUProgram.h
+
+
+		${SOLUTION_DIR}/include/DrawDrv/Texture.h		
+		${SOLUTION_DIR}/include/DrawDrv/RenderTarget.h
+		${SOLUTION_DIR}/include/DrawDrv/VertexBuffer.h
+		${SOLUTION_DIR}/include/DrawDrv/Viewport.h	
+		${SOLUTION_DIR}/include/DrawDrv/ConstBuffer.h	
+		${SOLUTION_DIR}/include/DrawDrv/ShaderParameter.h
+
+		${SOLUTION_DIR}/include/DrawDrv/RenderState.h
+		${SOLUTION_DIR}/include/DrawDrv/RenderStateDesc.h
+
+
+		${SOLUTION_DIR}/include/DrawDrv/RenderDriver.h
+		${SOLUTION_DIR}/include/DrawDrv/ResourceFactory.h
+
+)
+
+set (SOURCE_FILES
+  src/RenderState.cpp
+  src/RenderDriver.cpp
+  src/InputLayout.cpp
+  src/RenderStateDesc.cpp
+  src/PixelFormatDesc.cpp
+  src/PixelFormat.cpp
+  src/RenderFormat.cpp
+  src/RenderData.cpp
+  src/ShaderParameter.cpp
+)
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+
+set (CMAKE_FILES
+  CMakeLists.txt
+  ${PROJECTNAME}.list
+)
+SOURCE_GROUP("config" FILES
+	${CMAKE_FILES}
+)

@@ -1,0 +1,173 @@
+%{
+#include "tools/ParseUtility.h"
+
+using namespace shaderparser;
+int yyerror (const char *s);
+extern int Shhlineno;
+extern YYLTYPE yylloc;
+extern char Shhtext[];
+int yylex ();
+
+%}
+
+%name-prefix "Shh"
+
+%token _T_STRING_
+%token _T_SET_END_
+
+%token _T_SHADER_
+%token _T_PROGRAM_BEGIN_
+%token _T_PROGRAM_END_
+%token _T_TECHNIQUE_
+%token _T_PASS_
+%token _T_PROPERTY_
+
+%token _T_DISCRIBE_ 
+%token _T_CMD_
+%token _T_KEY_
+%token _T_SETTING_
+%token _T_VALUE_
+%token _T_OP_
+%token _T_UNKNOWN_
+
+
+%%
+parse_begin: shader;
+
+	shader: 
+		_T_SHADER_ 
+		{
+			NewCurrentProperty(PT_ShaderProperty, $1.lineno, $1.position);
+		}
+		'{'
+			shader_body
+		'}'
+
+		| _T_SHADER_ '"' _T_STRING_ '"'
+		{
+			NewCurrentProperty(PT_ShaderProperty, $1.lineno, $1.position);
+			GetCurrentShader()->SetName($3.str);
+		}
+		'{'
+			shader_body
+		'}'
+		{
+			FinishCurrentProperty();
+		};
+
+	
+		shader_body: /* empty */ | shader_body technique | shader_body program_area;
+					
+
+			program_area: 
+				_T_PROGRAM_BEGIN_ _T_PROGRAM_END_
+				{
+					NewCurrentProperty(PT_ProgramProperty, $1.lineno, $1.position);// + GetLineCount($1.str)
+					GetCurrentProgram()->SetHeadLen(strlen($1.str));
+					GetCurrentProgram()->SetTailLen(strlen($2.str));
+
+					GetCurrentProgram()->SetTailLine($2.lineno);
+					GetCurrentProgram()->SetTailPosition($2.position);
+
+					FinishCurrentProperty();
+				};
+
+			technique: technique_head
+				'{'
+					technique_body
+				'}'
+				{
+					FinishCurrentProperty();
+				};
+				technique_head:
+				_T_TECHNIQUE_ 
+				{
+					NewCurrentProperty(PT_TechniqueProperty, $1.lineno, $1.position);
+				}
+				| _T_TECHNIQUE_ '"' _T_STRING_ '"'
+				{
+					NewCurrentProperty(PT_TechniqueProperty, $1.lineno, $1.position);
+					GetCurrentTechnique()->SetName($3.str);
+	
+				};
+
+				technique_body:/* empty*/ | technique_body pass;
+					
+					pass: pass_head
+						'{'
+							pass_body
+						'}'
+						{
+							FinishCurrentProperty();
+						};
+						pass_head:
+						_T_PASS_ 
+						{
+							NewCurrentProperty(PT_PassProperty, $1.lineno, $1.position);
+							GetCurrentPass()->SetBeginLine($1.lineno);
+						}
+						| _T_PASS_ '"' _T_STRING_ '"'
+						{
+							NewCurrentProperty(PT_PassProperty, $1.lineno, $1.position);
+							GetCurrentPass()->SetName($3.str);
+						};
+						pass_body: /* empty */ | pass_body property;
+
+	property: 
+	_T_PROPERTY_ 
+	'{'
+		property_set
+	'}';
+			
+
+	property_set: /* empty */ 
+				| property_set _T_CMD_ 
+				{
+					GetCurrentProperty()->PushToken(PropertyToken::CMD, $2.str, $2.lineno, $2.position);
+				} property_setting _T_SET_END_;
+
+	property_setting: 
+		/* empty */
+		| property_setting '<' _T_DISCRIBE_ '>'
+		{
+			GetCurrentProperty()->PushToken(PropertyToken::Discribe, $3.str, $3.lineno, $3.position);
+		}
+		| property_setting '[' _T_KEY_ ']'
+		{
+			GetCurrentProperty()->PushToken(PropertyToken::Key, $3.str, $3.lineno, $3.position);
+		}
+		| property_setting '"' _T_STRING_ '"'
+		{
+			GetCurrentProperty()->PushToken(PropertyToken::String, $3.str, $3.lineno, $3.position);
+		}
+		| property_setting _T_VALUE_
+		{
+			GetCurrentProperty()->PushToken(PropertyToken::Value, $2.str, $2.lineno, $2.position);
+		}
+		| property_setting _T_SETTING_
+		{
+			GetCurrentProperty()->PushToken(PropertyToken::Setting, $2.str, $2.lineno, $2.position);
+		}
+		| property_setting _T_OP_
+		{
+			GetCurrentProperty()->PushToken(PropertyToken::Operator, $2.str, $2.lineno, $2.position);
+		};
+%%
+
+int yyerror (const char *s)
+{
+	//yystate
+	std::string err = "syntax error: ";
+	//if(yystate != -1)
+	//	err += yyerrmtx[yystate];
+	err += Shhtext;
+
+	return ParseError(AllocString(err.c_str()), yylloc.first_line, yylloc.first_column);//Shhlineno
+}
+namespace shaderparser
+{
+	void ParseShader()
+	{
+		yyparse();
+	}
+}

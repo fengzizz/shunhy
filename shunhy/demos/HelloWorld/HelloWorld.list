@@ -1,0 +1,14 @@
+#set (HEADER_FILES
+#)
+set (SOURCE_FILES
+  src/HelloMain.cpp 
+  src/RenderTest.h
+  src/RenderTest.cpp  
+)
+
+#SOURCE_GROUP("src" FILES
+#						${SOURCE_FILES}
+#)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)

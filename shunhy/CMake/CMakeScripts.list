@@ -1,0 +1,25 @@
+
+set (CMAKE_CONFIG_FILES		
+  CMakeLists.txt
+  ${PROJECTNAME}.list
+  empty.cpp
+)
+
+set (CMAKE_ROOT_FILES
+  ../CMakeLists.txt
+)
+
+set (CMAKE_SCRIPT_FILES		
+	WindowsBuildConfig.cmake
+)
+SOURCE_GROUP("scripts" FILES
+						${CMAKE_SCRIPT_FILES}
+)
+
+SOURCE_GROUP("config" FILES
+						${CMAKE_CONFIG_FILES}
+)
+
+SOURCE_GROUP("root" FILES
+	${CMAKE_ROOT_FILES}
+)

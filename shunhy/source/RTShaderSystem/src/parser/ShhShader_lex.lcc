@@ -1,0 +1,215 @@
+%{
+#include "tools/ParseUtility.h"
+#include "ShhShader_yacc.hpp"
+#define yylval Shhlval
+using namespace shaderparser;
+//static int yyinput (void);
+
+YYLTYPE yylloc;
+
+%}
+%option yylineno
+%option noyywrap
+%option caseless
+%option never-interactive
+%option prefix="Shh"
+
+_D_VALUE_		[\+-]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?
+_D_SETTING_		[_A-Za-z][_A-Za-z0-9]*
+_D_KEY_			[_A-Za-z]+
+_D_ANY_			[_A-Za-z]+
+
+_D_SPACE_		[ \t]+
+_D_EMPTY_		[ \t\n\r]+
+_D_NONE_		[ \t\n\r]*
+
+
+%start __STRING__  __DISCRIBE__ __KEY__ __SHADER__   __PROGRAM__  __PROPERTY__ __PROPERTY_SETTING__
+
+%%
+
+"//"[^\n]*[\n]
+			{
+				_PARSING_LOG_(yytext);
+				ECHO;
+			}
+"/*"[^(*/)]*"*/"
+			{
+				_PARSING_LOG_(yytext);
+				ECHO;
+			}
+
+"shader"|"Shader"					{	/* -------- shader begin. -------- */
+										_DO_AND_LOG_(BEGIN (__SHADER__));	
+										__SET_YYLVAL_LINENO();
+										return _T_SHADER_;
+									}
+
+<__SHADER__>[\"]					{
+										PushLexerState(__SHADER__);
+										_DO_AND_LOG_(BEGIN (__STRING__));
+										return *yytext;
+									}
+
+<__SHADER__>"{"						{
+										__SET_YYLVAL_LINENO();
+										return *yytext;
+									}
+
+<__SHADER__>"}"						{
+										__SET_YYLVAL_LINENO();
+										return *yytext;
+									}
+
+
+<__SHADER__>"technique"|"Technique"	{	/* -------- technique begin. -------- */	
+										__SET_YYLVAL_LINENO();			
+										return _T_TECHNIQUE_;
+									}
+
+
+<__SHADER__>"pass"|"Pass"			{	/* -------- pass begin. -------- */	
+										__SET_YYLVAL_LINENO();			
+										return _T_PASS_;
+									}
+<__SHADER__>"Property"|"property"	{
+										PushLexerState(__SHADER__);
+										_DO_AND_LOG_(BEGIN (__PROPERTY__));
+										__SET_YYLVAL_LINENO();	
+										return _T_PROPERTY_;
+									}
+
+
+<__SHADER__>"SHADER_CODE_BEGIN"{_D_NONE_}"{"	{	
+														/* -------- progam begin. -------- */
+														/* "SHADER_CODE_BEGIN{" */
+														_DO_AND_LOG_(BEGIN (__PROGRAM__));	
+														__SET_YYLVAL(str, AllocString(yytext));		
+														return _T_PROGRAM_BEGIN_;
+												}
+
+<__SHADER__>{_D_ANY_}	{
+							__SET_YYLVAL(str, AllocString(yytext));
+							return _T_UNKNOWN_;
+						}
+
+<__PROGRAM__>"}"{_D_NONE_}"SHADER_CODE_END"			{
+														_DO_AND_LOG_(BEGIN (__SHADER__));
+														__SET_YYLVAL(str, AllocString(yytext));
+														return _T_PROGRAM_END_;
+														/* "}SHADER_CODE_END" */
+														/* -------- progam end. -------- */
+													}
+
+
+<__PROPERTY__>{_D_KEY_}				{
+										__SET_YYLVAL(str, AllocString(yytext));
+										_DO_AND_LOG_(BEGIN (__PROPERTY_SETTING__));	
+										return _T_CMD_;
+									}
+
+<__PROPERTY__>"{"					{
+										__SET_YYLVAL_LINENO();
+										return *yytext;
+									}
+<__PROPERTY__,__PROPERTY_SETTING__>"}"	{
+										BEGIN(PopLexerState());
+										__SET_YYLVAL_LINENO();
+										return *yytext;
+									}
+	
+<__PROPERTY_SETTING__>{_D_VALUE_}	{
+										__SET_YYLVAL(str, AllocString(yytext));
+										return _T_VALUE_;
+									}
+<__PROPERTY_SETTING__>{_D_SETTING_}	{
+										__SET_YYLVAL(str, AllocString(yytext));
+										return _T_SETTING_;
+									}
+
+<__PROPERTY_SETTING__>[\n]			{
+										__SET_YYLVAL_LINENO();
+										BEGIN(__PROPERTY__);
+										return _T_SET_END_;
+									}
+<__PROPERTY_SETTING__>";"			{
+										__SET_YYLVAL_LINENO();
+										BEGIN(__PROPERTY__);
+										return _T_SET_END_;
+									}
+<__PROPERTY_SETTING__>"<"			{
+										PushLexerState(__PROPERTY_SETTING__);
+										_DO_AND_LOG_(BEGIN (__DISCRIBE__));
+										return *yytext;
+									}
+<__PROPERTY_SETTING__>"["			{
+										PushLexerState(__PROPERTY_SETTING__);
+										_DO_AND_LOG_(BEGIN (__KEY__));
+										return *yytext;
+									}
+<__PROPERTY_SETTING__>[\"]			{
+										PushLexerState(__PROPERTY_SETTING__);
+										_DO_AND_LOG_(BEGIN (__STRING__));
+										return *yytext;
+									}
+
+<__PROPERTY_SETTING__>"="			{
+										__SET_YYLVAL(str, AllocString(yytext));
+										return _T_OP_;
+									}
+
+
+<__STRING__>[^\"]*		{
+							__SET_YYLVAL(str, AllocString(yytext));
+							return _T_STRING_;
+						}
+<__STRING__>[\"]		{
+							BEGIN(PopLexerState());
+							__SET_YYLVAL_LINENO();
+							return *yytext;
+						}
+
+<__DISCRIBE__>[^>]*		{
+							__SET_YYLVAL(str, AllocString(yytext));
+							return _T_DISCRIBE_;
+						}
+<__DISCRIBE__>[>]		{
+							BEGIN(PopLexerState());
+							__SET_YYLVAL_LINENO();
+							return *yytext;
+						}
+
+<__KEY__>[^\]]*			{
+							__SET_YYLVAL(str, AllocString(yytext));
+							return _T_KEY_;
+						}
+<__KEY__>"]"			{
+							BEGIN(PopLexerState());
+							__SET_YYLVAL_LINENO();
+							return *yytext;
+						}
+
+
+%%
+
+
+
+
+
+
+YY_BUFFER_STATE b;
+namespace shaderparser
+{
+	void InitShaderLexer(const char *c, size_t length)
+	{
+		b = yy_scan_bytes(c, length);
+		yy_switch_to_buffer(b);
+		yylineno = 1;
+		BEGIN (INITIAL);
+	}
+
+	void EndShaderLexer()
+	{
+		yy_delete_buffer( YY_CURRENT_BUFFER );
+	}
+}

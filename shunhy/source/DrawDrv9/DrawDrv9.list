@@ -1,0 +1,36 @@
+set (HEADER_FILES
+  include/D3d9_Buffer.h
+  include/D3d9_Common.h
+  include/D3d9_Driver.h
+  include/D3d9_IndexBuffer.h
+  include/D3d9_PixelShader.h
+  include/D3d9_Shader.h
+  include/D3d9_ResourceFactory.h
+  include/D3d9_VertexBuffer.h
+  include/D3d9_VertexShader.h
+)
+set (SOURCE_FILES
+  src/D3d9_Buffer.cpp
+  src/D3d9_Driver.cpp
+  src/D3d9_IndexBuffer.cpp
+  src/D3d9_PixelShader.cpp
+  src/D3d9_ResourceFactory.cpp
+  src/D3d9_VertexBuffer.cpp
+  src/D3d9_VertexShader.cpp
+  
+)
+
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+
+set (CMAKE_FILES
+  CMakeLists.txt
+  ${PROJECTNAME}.list
+)
+SOURCE_GROUP("config" FILES
+	${CMAKE_FILES}
+)

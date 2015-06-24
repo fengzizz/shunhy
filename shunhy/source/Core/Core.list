@@ -1,0 +1,106 @@
+
+set (PUBLIC_HEADER_FILES		
+		${SOLUTION_DIR}/include/Core/TEnum.h
+		${SOLUTION_DIR}/include/Core/ClassType.h
+		${SOLUTION_DIR}/include/Core/CoreDef.h
+		${SOLUTION_DIR}/include/Core/CoreConfig.h
+		${SOLUTION_DIR}/include/Core/CoreService.h
+		${SOLUTION_DIR}/include/Core/SObject.h
+		${SOLUTION_DIR}/include/Core/Singleton.h	
+		${SOLUTION_DIR}/include/Core/VarType.h
+		${SOLUTION_DIR}/include/Core/Nameable.h
+
+		${SOLUTION_DIR}/include/Core/ExceptionBase.h
+		${SOLUTION_DIR}/include/Core/Exceptions.h
+		${SOLUTION_DIR}/include/Core/Log.h
+		${SOLUTION_DIR}/include/Core/Debug.h
+		${SOLUTION_DIR}/include/Core/Memory.h
+		${SOLUTION_DIR}/include/Core/Thread.h
+		${SOLUTION_DIR}/include/Core/DebugListener.h
+		${SOLUTION_DIR}/include/Core/Convert.h
+		${SOLUTION_DIR}/include/Core/FixArray.h
+		${SOLUTION_DIR}/include/Core/PtrArray.h
+
+		${SOLUTION_DIR}/include/Core/StringUtility.h
+		${SOLUTION_DIR}/include/Core/U8String.h
+		${SOLUTION_DIR}/include/Core/U16String.h
+		${SOLUTION_DIR}/include/Core/UString.h
+		${SOLUTION_DIR}/include/Core/HString.h
+		
+
+		${SOLUTION_DIR}/include/Core/UniquePtr.h
+		${SOLUTION_DIR}/include/Core/SharedPtr.h
+		${SOLUTION_DIR}/include/Core/SharedObject.h
+		${SOLUTION_DIR}/include/Core/SharedObjectPtr.h
+
+		${SOLUTION_DIR}/include/Core/Delegate.h
+		${SOLUTION_DIR}/include/Core/DelegateImplement.h
+		)
+		
+set (SOURCE_FILES
+	src/Core.cpp 
+	src/SObject.cpp
+	src/CoreService.cpp 
+	src/Log.cpp
+	src/Debug.cpp  
+	src/Convert.cpp
+	src/StringUtility.cpp
+	src/U8String.cpp
+	src/U16String.cpp  
+	src/UString.cpp
+	src/HString.cpp
+	src/Nameable.cpp
+	src/TEnum.cpp
+
+	src/SharedObject.cpp
+	src/Memory.cpp
+	src/ExceptionBase.cpp
+	src/Exceptions.cpp
+)
+set (HEADER_FILES
+	src/DebugWin32.h  
+)
+
+set (FILE_SYSTEM_HEADER_FILES
+		${SOLUTION_DIR}/include/Core/FileSystem/FileSystem.h
+		${SOLUTION_DIR}/include/Core/FileSystem/FileSystemDef.h
+		${SOLUTION_DIR}/include/Core/FileSystem/DataStream.h
+		${SOLUTION_DIR}/include/Core/FileSystem/Archive.h
+		${SOLUTION_DIR}/include/Core/FileSystem/PathAssign.h
+)
+set (FILE_SYSTEM_SOURCE_FILES
+		FileSystem/FileSystem.cpp  
+		FileSystem/DataStream.cpp
+		FileSystem/Archive.cpp
+		FileSystem/PathAssign.cpp
+)
+
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+
+SOURCE_GROUP("public_include" FILES
+						${PUBLIC_HEADER_FILES}
+)
+
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+
+
+SOURCE_GROUP("src\\FileSystem" FILES
+						${FILE_SYSTEM_SOURCE_FILES}
+)
+SOURCE_GROUP("public_include\\FileSystem" FILES
+						${FILE_SYSTEM_HEADER_FILES}
+)
+
+
+set (CMAKE_FILES
+  CMakeLists.txt
+  ${PROJECTNAME}.list
+)
+
+SOURCE_GROUP("config" FILES
+	${CMAKE_FILES}
+)

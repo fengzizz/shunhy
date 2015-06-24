@@ -1,0 +1,140 @@
+%{
+#include "tools/ParseUtility.h"
+
+using namespace shaderparser;
+int yyerror (const char *s);
+extern int Shhlineno;
+extern char* yytext;
+int yylex ();
+
+%}
+
+%name-prefix "Shh"
+
+%token _T_ERROR_
+%token _T_STRING_
+%token _T_SHADER_
+%token _T_PROGRAM_BEGIN_
+%token _T_PROGRAM_END_
+%token _T_TECHNIQUE_
+%token _T_PASS_
+%token _T_PASS_BODY_TEMP_
+
+%token _T_FILLMODE_
+%token _T_CULLMODE_
+%token _T_SLOP_SCALE_DEPTH_BIAS_
+%token _T_DEPTH_BIAS_
+%token _T_SCISSOR_TEST_
+%token _T_MULTI_SAMPLE_
+
+
+%token _T_DEPTHTEST_
+%token _T_DEPTHWRITE_
+%token _T_BLENDMODE_
+%token _T_ALPHATEST_
+%token _T_SAMPLER_
+%token _T_COLORMASK_
+%token _T_ENUM_NAME_
+%token _T_LINE_END_
+
+%token _T_BOOL_
+%token _T_OFF_
+%token _T_FLOAT_
+%token _T_INT_
+
+
+%%
+parse_begin: shader;
+
+	shader: 
+		_T_SHADER_ 
+		{
+			NewCurrentShader($1.lineno);
+			GetCurrentShader()->SetBeginLine($1.lineno);
+		}
+		'{'
+			shader_body
+		'}'
+
+		| _T_SHADER_ '"' _T_STRING_ '"'
+		{
+			NewCurrentShader($1.lineno);
+			GetCurrentShader()->SetName($3.str);
+			GetCurrentShader()->SetBeginLine($1.lineno);
+		}
+		'{'
+			shader_body
+		'}';
+
+	
+		shader_body: /* empty */ | shader_body technique | shader_body program_area;
+					
+
+			program_area: 
+				_T_PROGRAM_BEGIN_ _T_PROGRAM_END_
+				{
+					NewCurrentProgram($1.lineno + GetLineCount($1.str));
+					GetCurrentProgram()->SetHeadLen(strlen($1.str));
+					GetCurrentProgram()->SetTailLen(strlen($2.str));
+				};
+
+			technique:
+				_T_TECHNIQUE_ 
+				{
+					NewCurrentTechnique($1.lineno);
+					GetCurrentTechnique()->SetBeginLine($1.lineno);
+				}
+				'{'
+					technique_body
+				'}'
+
+				| _T_TECHNIQUE_ '"' _T_STRING_ '"'
+				{
+					NewCurrentTechnique($1.lineno);
+					GetCurrentTechnique()->SetName($3.str);
+					GetCurrentTechnique()->SetBeginLine($1.lineno);
+				}
+				'{'
+					technique_body
+				'}';
+
+				technique_body:/* empty*/ | technique_body pass;
+					
+					pass:
+						_T_PASS_ 
+						{
+							NewCurrentPass($1.lineno);
+							GetCurrentPass()->SetBeginLine($1.lineno);
+						}
+						'{'
+							pass_body
+						'}'
+
+						| _T_PASS_ '"' _T_STRING_ '"'
+						{
+							NewCurrentPass($1.lineno);
+							GetCurrentPass()->SetName($3.str);
+							GetCurrentPass()->SetBeginLine($1.lineno);
+						}
+						'{'
+							pass_body
+						'}'
+
+						pass_body: /* empty */ | _T_PASS_BODY_TEMP_  
+							{
+								
+							}
+
+%%
+
+int yyerror (const char *s)
+{
+	return ParseError(s, Shhlineno);
+}
+namespace shaderparser
+{
+	void ParseShader()
+	{
+		yyparse();
+	}
+}

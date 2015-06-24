@@ -1,0 +1,69 @@
+
+set (PUBLIC_HEADER_FILES		
+		${SOLUTION_DIR}/include/Application/AppDef.h	
+		${SOLUTION_DIR}/include/Application/Application.h
+		${SOLUTION_DIR}/include/Application/Keyboard.h
+		${SOLUTION_DIR}/include/Application/Mouse.h
+		${SOLUTION_DIR}/include/Application/GameTime.h
+		${SOLUTION_DIR}/include/Application/InputEvent.h
+		${SOLUTION_DIR}/include/Application/InputListener.h
+)
+
+set (HEADER_FILES
+  src/Display.h
+  src/DisplayWin32.h
+  src/PrivateDef.h
+  src/InputService.h
+  src/InputServiceWin32.h
+  src/InputServiceBase.h
+  src/GameService.h
+  src/AppCore.h
+  src/AppInputListener.h
+  src/AppKeyboard.h	
+  src/AppMouse.h
+)
+set (SOURCE_FILES
+  src/PrivateDef.cpp
+  src/Keyboard.cpp
+  src/Mouse.cpp
+  src/GameTime.cpp
+  src/Application.cpp
+  src/AppInputListener.cpp
+  
+  src/Display.cpp
+  src/DisplayWin32.cpp
+  src/InputService.cpp
+  src/InputServiceWin32.cpp
+  src/InputServiceBase.cpp
+  src/GameService.cpp
+  src/AppCore.cpp
+  src/AppKeyboard.cpp	
+  src/AppMouse.cpp
+)
+
+
+
+set (DLLMAIN_FILES
+	dllmain/targetver.h
+	dllmain/dllmain.cpp
+)
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+SOURCE_GROUP("public_include" FILES
+						${PUBLIC_HEADER_FILES}
+)
+SOURCE_GROUP("dllmain" FILES
+						${DLLMAIN_FILES}
+)
+
+set (CMAKE_FILES
+  CMakeLists.txt
+  ${PROJECTNAME}.list
+)
+SOURCE_GROUP("config" FILES
+	${CMAKE_FILES}
+)

@@ -1,0 +1,58 @@
+set (HEADER_FILES
+		${SOLUTION_DIR}/include/MathCore/MathCoreDef.h
+		${SOLUTION_DIR}/include/MathCore/BoundingBox.h
+		${SOLUTION_DIR}/include/MathCore/Color.h
+		${SOLUTION_DIR}/include/MathCore/MathCore.h
+		${SOLUTION_DIR}/include/MathCore/Matrix3.h
+		${SOLUTION_DIR}/include/MathCore/Matrix4.h
+		${SOLUTION_DIR}/include/MathCore/Matrix34.h
+		${SOLUTION_DIR}/include/MathCore/Matrix43.h
+		${SOLUTION_DIR}/include/MathCore/MatrixDef.h
+		${SOLUTION_DIR}/include/MathCore/OthersDef.h
+		${SOLUTION_DIR}/include/MathCore/Plane.h
+		${SOLUTION_DIR}/include/MathCore/Quaternion.h
+		${SOLUTION_DIR}/include/MathCore/Vector2.h
+		${SOLUTION_DIR}/include/MathCore/Vector3.h
+		${SOLUTION_DIR}/include/MathCore/Vector4.h
+		${SOLUTION_DIR}/include/MathCore/VectorDef.h
+
+)
+set (SOURCE_FILES
+		src/BoundingBox.cpp  
+		src/Color.cpp  
+		src/MathCore.cpp  
+		src/Matrix3.cpp  
+		src/Matrix4.cpp  
+		src/Matrix34.cpp  
+		src/Matrix43.cpp  
+		src/Plane.cpp  
+		src/Quaternion.cpp  
+		src/Vector2.cpp  
+		src/Vector3.cpp  
+		src/Vector4.cpp  
+)
+set (MODELING_HEADER_FILES
+		${SOLUTION_DIR}/include/MathCore/Modeling/Modeling.h
+		${SOLUTION_DIR}/include/MathCore/Modeling/BoxModeling.h
+		${SOLUTION_DIR}/include/MathCore/Modeling/ParallelogramModeling.h
+)
+set (MODELING_SOURCE_FILES
+		src/Modeling/Modeling.cpp
+		src/Modeling/BoxModeling.cpp
+		src/Modeling/ParallelogramModeling.cpp
+		src/Modeling/ModelingPrivate.h
+)
+
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+
+SOURCE_GROUP("src\\Modeling" FILES
+						${MODELING_SOURCE_FILES}
+)
+SOURCE_GROUP("include\\Modeling" FILES
+						${MODELING_HEADER_FILES}
+)
