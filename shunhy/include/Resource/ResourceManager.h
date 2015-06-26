@@ -2,11 +2,10 @@
 #define __RESOURCE_MANAGER_H__
 
 #include <map>
-
-#include "RTShaderSystem/RTSSCommon.h"
 #include "Core/HString.h"
 #include "Core/UniquePtr.h"
 #include "Graphics/GraphicsDef.h"
+#include "RTShaderSystem/RTSSCommon.h"
 #include "Resource/Resource.h"
 
 namespace Shh
