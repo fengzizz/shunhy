@@ -1,0 +1,22 @@
+
+set (PUBLIC_HEADER_FILES
+		${SOLUTION_DIR}/include/AssetService/AssetServiceDef.h		
+		${SOLUTION_DIR}/include/AssetService/AssetService.h	
+)
+
+set (HEADER_FILES
+  #src/
+)
+set (SOURCE_FILES
+  src/AssetService.cpp
+)
+
+SOURCE_GROUP("src" FILES
+						${SOURCE_FILES}
+)
+SOURCE_GROUP("include" FILES
+						${HEADER_FILES}
+)
+SOURCE_GROUP("public_include" FILES
+						${PUBLIC_HEADER_FILES}
+)
