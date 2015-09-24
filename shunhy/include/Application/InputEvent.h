@@ -9,6 +9,8 @@ namespace Shh
 		EKS_Released,
 		EKS_Pressed
 	};
+	//the same as win32 key define.
+	// 键盘VK值列表  
 	enum EKeys
 	{
 		EKey_A = 0x41,
